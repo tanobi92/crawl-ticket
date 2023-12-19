@@ -20,7 +20,8 @@ const login = async (page) => {
     await passInput.type(password);
 
     await page.click('[ng-click="c.submitEmail(authForm)"]');
-    await page.waitForTimeout(1000);
+    // await page.waitForTimeout(1000);
+    await page.waitForSelector('.user-avatar');
 }
 const main = async () => {
     try {
@@ -82,7 +83,8 @@ const main = async () => {
 
         await btnNext1.click();
 
-        await page.waitForTimeout(1000);
+        // await page.waitForTimeout(1000);
+        await page.waitForSelector('input[name="ipt_phoneIpt');
 
         const $phone = await page.$('input[name="ipt_phoneIpt"]');
 
@@ -91,13 +93,15 @@ const main = async () => {
         const btnNext2 = await page.$('.btn[ng-click="ctrl.nextStep()"]');
 
         await btnNext2.click();
-        await page.waitForTimeout(1500);
+        // await page.waitForTimeout(1500);
+        await page.waitForSelector('button[ng-click="ctrl.openMyParticipants($index)"]');
 
         const btnInfo = await page.$('button[ng-click="ctrl.openMyParticipants($index)"]');
 
         await btnInfo.click();
         await (await page.$('.list-group-item:nth-child(1)')).click();
-        await page.waitForTimeout(1500);
+        // await page.waitForTimeout(1500);
+        await page.waitForSelector(`input[ng-model="pat.moreInfos['Địa chỉ hiện tại']"]`);
 
         const $address = await page.$(`input[ng-model="pat.moreInfos['Địa chỉ hiện tại']"]`);
 
@@ -107,7 +111,8 @@ const main = async () => {
 
         await btnNext3.click();
 
-        await page.waitForTimeout(1500);
+        // await page.waitForTimeout(1500);
+        await page.waitForSelector('.pay-container');
 
         if (cardNumber) {
             const $cardVisa = await page.$('.pay-container:nth-child(2)');
