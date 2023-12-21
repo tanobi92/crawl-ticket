@@ -117,7 +117,7 @@ const main = async () => {
         if (cardNumber) {
             const $cardVisa = await page.$('.pay-container:nth-child(2)');
 
-            // await $cardVisa.click();
+            await $cardVisa.click();
         }
 
     } catch (error) {
