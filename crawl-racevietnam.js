@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 const configs = require('./configs/racevietnam.cfg');
-const {district} = require("./configs/racevietnam.cfg");
 
 const {url, urls, address, email, password, headless, ticketURL, distance,
-    phone, cardNumber, loginURL, district, commune, bibName, sos, size, blood, hearth} = configs;
+    phone, cardNumber, loginURL, district, commune, bibName, sos, size, blood,
+    voucher, hearth} = configs;
 
 const login = async (page, uri) => {
     console.log('------ Start login Tim ve ------');
@@ -26,7 +26,7 @@ const login = async (page, uri) => {
 
     $btnLogin = await page.$('#SignIn .btn[type="submit"]');
     await $btnLogin.click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(10000);
     await page.waitForSelector('#users-dropdown-invoker-2');
 }
 const crawl = async (uri) => {
@@ -54,6 +54,7 @@ const crawl = async (uri) => {
 
         await page.goto(`${uri}${ticketURL}`);
 
+        await page.waitForTimeout(5000);
         // chon ca nhan
         await page.waitForSelector('#nav-raceregister');
         // await page.click('.block-main .container .text-center');
@@ -65,6 +66,7 @@ const crawl = async (uri) => {
         // quan/huyen
         await selectDropdown(page, 'DistrictId', district);
 
+        await page.waitForTimeout(5000);
         // xa/phuong
         await selectDropdown(page, 'DistrictId', commune);
 
@@ -76,6 +78,10 @@ const crawl = async (uri) => {
 
         // lien he khan cap
         await typeInput(page, 'EmergencyContact', sos);
+
+        // mã giảm giá
+        await typeInput(page, 'UseVoucher', voucher);
+
 
         // size ao
         await selectDropdown(page, 'SizeShirt', size);
